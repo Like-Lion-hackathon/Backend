@@ -42,6 +42,16 @@ public class  PostRepository {
         return jdbcTemplate.queryForList(sql, params);
     }
 
+     //list 사용 x
+    public List<Map<String, Object>> getSub(Integer s1,Integer s2,Integer s3,  Integer s4) {
+        String sql = "SELECT CONCAT(p.url, ' - ', p.item, ' - ', p.company, ' - ', p.color, ' - ', p.likenum)\n" +
+                " FROM post p\n" +
+                " JOIN mapping m ON p.post_id = m.post_id\n" +
+                " WHERE m.subcategory_id IN (?,?,?,?)";
+
+        return jdbcTemplate.queryForList(sql, s1, s2, s3, s4);
+    }
+    
 
     //실험중입니다요
     public List<Map<String, Object>> getTest(List<Map<String,Object>> subcategoryIds) {
